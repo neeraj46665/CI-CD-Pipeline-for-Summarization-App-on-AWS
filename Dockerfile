@@ -4,12 +4,13 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Copy requirements.txt first to leverage Docker cache
+COPY requirements.txt /app/requirements.txt
+# Copy the .env file to the working directory
+COPY .env /app/.env
 # Copy the current directory contents into the container
 COPY . /app
 
-# Copy the .env file to the working directory
-COPY .env /app/.env
-COPY requirements.txt /app/requirements.txt
 # Install dependencies
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir --upgrade -r requirements.txt
