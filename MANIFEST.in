@@ -1,0 +1,17 @@
+# Include all Python files
+include app/**/*.py
+
+# Include requirements.txt
+include app/requirements.txt
+
+# Include the .env file
+include .env
+
+# Include the README.md file
+include README.md
+
+# Include any other files as needed, such as tests
+include tests/*.py
+
+# Include any other static files if necessary
+# include app/static/*
