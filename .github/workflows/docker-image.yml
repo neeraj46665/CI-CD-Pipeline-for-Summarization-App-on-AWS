@@ -39,7 +39,7 @@ jobs:
           chmod 600 tween-prod-nvir.pem
           ssh -o StrictHostKeyChecking=no -i tween-prod-nvir.pem ${USER}@${HOST} 'bash -s' <<EOF
             docker pull neeraj46665/summary:latest
-            docker stop summary || true
-            docker rm summary || true
-            docker run -d -p 8501:8501 summary:latest
+            docker stop neeraj46665/summary:latest || true
+            docker rm neeraj46665/summary:latest || true
+            docker run -d -p 8501:8501 neeraj46665/summary:latest
 
