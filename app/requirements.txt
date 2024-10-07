@@ -1,0 +1,31 @@
+# Essential libraries
+streamlit
+
+# Langchain-related libraries
+langchain-community
+langchain
+langchain-cohere
+langchain-groq
+
+# Cohere NLP API
+cohere
+
+# Transformers library
+transformers
+
+# PDF handling
+PyPDF2
+
+# Web scraping and requests
+requests
+beautifulsoup4
+youtube-transcript-api
+
+
+# Environment variables management
+python-dotenv
+
+# YouTube video handling
+pytube
+
+
