@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: neeraj46665/summary:latest  # Docker Hub username and image name
+
+      - name: Deploy to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}  # Ensure this is set in GitHub secrets
+          HOST: ${{ secrets.EC2_IP }}               # Ensure this is set in GitHub secrets
+          USER: ${{ secrets.EC2_USER }}             # Ensure this is set in GitHub secrets
+        run: |
+          echo "${PRIVATE_KEY}" > tween-prod-nvir.pem
+          chmod 600 tween-prod-nvir.pem
+          ssh -o StrictHostKeyChecking=no -i tween-prod-nvir.pem ${USER}@${HOST} 'bash -s' <<EOF
+            docker pull neeraj46665/summary:latest
+            docker stop summary-app || true
+            docker rm summary-app || true
+            docker run -d --name summary-app -p 80:80 neeraj46665/summary:latest
+
