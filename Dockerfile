@@ -9,7 +9,7 @@ COPY . /app
 
 # Copy the .env file to the working directory
 COPY .env /app/.env
-
+COPY requirements.txt /app/requirements.txt
 # Install dependencies
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir --upgrade -r requirements.txt
