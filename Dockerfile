@@ -4,12 +4,14 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy requirements.txt first to leverage Docker cache
-COPY requirements.txt /app/requirements.txt
-# Copy the .env file to the working directory
-COPY .env /app/.env
-# Copy the current directory contents into the container
-COPY . /app
+# Copy the requirements.txt file into the container
+COPY app/requirements.txt /app/requirements.txt
+
+# Copy the .env file into the container
+COPY app/.env /app/.env
+
+# Copy the application code into the container
+COPY app /app
 
 # Install dependencies
 RUN pip install --upgrade pip \
@@ -19,4 +21,4 @@ RUN pip install --upgrade pip \
 EXPOSE 8501
 
 # Command to run Streamlit when the container starts
-CMD ["streamlit", "run", "app/app.py"]
+CMD ["streamlit", "run", "app.py"]
