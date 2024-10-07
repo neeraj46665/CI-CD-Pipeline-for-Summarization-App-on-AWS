@@ -8,7 +8,7 @@ WORKDIR /app
 COPY app/requirements.txt /app/requirements.txt
 
 # Copy the .env file into the container
-COPY app/.env /app/.env
+COPY .env /app/.env
 
 # Copy the application code into the container
 COPY app /app
