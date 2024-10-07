@@ -12,7 +12,7 @@ COPY .env /app/.env
 
 # Install dependencies
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Expose the port that Streamlit will run on
 EXPOSE 8501
