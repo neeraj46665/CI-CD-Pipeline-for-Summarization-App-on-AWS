@@ -3,6 +3,11 @@ FROM python:3.11-slim
 
 # Install dnsutils
 RUN apt-get update && apt-get install -y dnsutils
+# Install curl and other required utilities
+RUN apt-get update && apt-get install -y \
+    curl \
+    iputils-ping \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
 WORKDIR /app
