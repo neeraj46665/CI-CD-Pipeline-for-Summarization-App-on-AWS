@@ -1,6 +1,9 @@
 # Use the official Python image from Docker Hub
 FROM python:3.11-slim
 
+# Install dnsutils
+RUN apt-get update && apt-get install -y dnsutils
+
 # Set the working directory in the container
 WORKDIR /app
 
